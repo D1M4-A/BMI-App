@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>BMI App</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/script>
 </head>
 
 <body>
@@ -27,40 +25,20 @@ Hitung BMI
 
 <script>
 
-const SUPABASE_URL = "https://uctizwdxntiqkyqwlvae.supabase.co";
+function hitung() {
 
-const SUPABASE_KEY = "PASTE_KEY_ANDA_DI_SINI";
+    let tinggi =
+    document.getElementById("tinggi").value;
 
-const client = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-async function hitung() {
-
-    let tinggi = document.getElementById("tinggi").value;
-    let berat = document.getElementById("berat").value;
+    let berat =
+    document.getElementById("berat").value;
 
     let bmi =
-        berat / ((tinggi / 100) * (tinggi / 100));
+    berat / ((tinggi / 100) * (tinggi / 100));
 
     document.getElementById("hasil").innerHTML =
-        "BMI Anda : " + bmi.toFixed(2);
+    "BMI Anda : " + bmi.toFixed(2);
 
-    const { error } = await client
-        .from("bmi_records")
-        .insert([
-            {
-                tinggi: parseInt(tinggi),
-                berat: parseInt(berat),
-                bmi: parseFloat(bmi.toFixed(2))
-            }
-        ]);
-
-    if(error){
-        console.error(error);
-        alert("Gagal simpan");
-    }
 }
 
 </script>
