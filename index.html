@@ -4,64 +4,66 @@
     <meta charset="UTF-8">
     <title>BMI App</title>
 
-    <script src.jsdelivr.net/npm/@supabase/supabase-js@2script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/script>
 </head>
 
 <body>
 
-    <h1>Kalkulator Berat Badan Ideal</h1>
+<h1>Kalkulator Berat Badan Ideal</h1>
 
-    <p>Tinggi Badan (cm)</p>
-    <input type="number" id="tinggi">
+<p>Tinggi Badan (cm)</p>
+<input type="number" id="tinggi">
 
-    <p>Berat Badan (kg)</p>
-    <input type="number" id="berat">
+<p>Berat Badan (kg)</p>
+<input type="number" id="berat">
 
-    <br><br>
+<br><br>
 
-    <button onclick="hitung()">
-        Hitung BMI
-    </button>
+<button onclick="hitung()">
+Hitung BMI
+</button>
 
-    <h2 id="hasil"></h2>
+<h2 id="hasil"></h2>
 
-    <script>
+<script>
 
-    const SUPABASE_URL = "https://uctizwdxntiqkyqwlvae.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_FsyLzPf8bOnOWBGhp9lUZQ_6JDvRPkr";
+const SUPABASE_URL = "https://uctizwdxntiqkyqwlvae.supabase.co";
 
-    const client = supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const SUPABASE_KEY = "PASTE_KEY_ANDA_DI_SINI";
 
-    async function hitung() {
+const client = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
-        let tinggi = document.getElementById("tinggi").value;
-        let berat = document.getElementById("berat").value;
+async function hitung() {
 
-        let bmi =
-            berat / ((tinggi / 100) * (tinggi / 100));
+    let tinggi = document.getElementById("tinggi").value;
+    let berat = document.getElementById("berat").value;
 
-        document.getElementById("hasil").innerHTML =
-            "BMI Anda : " + bmi.toFixed(2);
+    let bmi =
+        berat / ((tinggi / 100) * (tinggi / 100));
 
-        const { error } = await client
-            .from("bmi_records")
-            .insert([
-                {
-                    tinggi: parseInt(tinggi),
-                    berat: parseInt(berat),
-                    bmi: parseFloat(bmi.toFixed(2))
-                }
-            ]);
+    document.getElementById("hasil").innerHTML =
+        "BMI Anda : " + bmi.toFixed(2);
 
-        if (error) {
-            console.error(error);
-        }
+    const { error } = await client
+        .from("bmi_records")
+        .insert([
+            {
+                tinggi: parseInt(tinggi),
+                berat: parseInt(berat),
+                bmi: parseFloat(bmi.toFixed(2))
+            }
+        ]);
+
+    if(error){
+        console.error(error);
+        alert("Gagal simpan");
     }
+}
 
-    </script>
+</script>
 
 </body>
 </html>
