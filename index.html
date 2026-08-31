@@ -1,42 +1,67 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BMI App</title>
 
-<script>
+    <script src.jsdelivr.net/npm/@supabase/supabase-js@2script>
+</head>
 
-const SUPABASE_URL = "https://uctizwdxntiqkyqwlvae.supabase.co";
-const SUPABASE_KEY = "sb_publishable_FsyLzPf8bOnOWBGhp9lUZQ_6JDvRPkr";
+<body>
 
-const supabase =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+    <h1>Kalkulator Berat Badan Ideal</h1>
 
-async function hitung(){
+    <p>Tinggi Badan (cm)</p>
+    <input type="number" id="tinggi">
 
-let tinggi =
-document.getElementById("tinggi").value;
+    <p>Berat Badan (kg)</p>
+    <input type="number" id="berat">
 
-let berat =
-document.getElementById("berat").value;
+    <br><br>
 
-let bmi =
-berat /
-((tinggi/100)*(tinggi/100));
+    <button onclick="hitung()">
+        Hitung BMI
+    </button>
 
-document.getElementById("hasil").innerHTML =
-"BMI Anda : " +
-bmi.toFixed(2);
+    <h2 id="hasil"></h2>
 
-await supabase
-.from("bmi_records")
-.insert([
-{
-tinggi: parseInt(tinggi),
-berat: parseInt(berat),
-bmi: parseFloat(bmi.toFixed(2))
-}
-]);
+    <script>
 
-}
+    const SUPABASE_URL = "https://uctizwdxntiqkyqwlvae.supabase.co";
+    const SUPABASE_KEY = "PASTE_PUBLISHABLE_KEY_DISINI";
 
-</script>
+    const client = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+    async function hitung() {
+
+        let tinggi = document.getElementById("tinggi").value;
+        let berat = document.getElementById("berat").value;
+
+        let bmi =
+            berat / ((tinggi / 100) * (tinggi / 100));
+
+        document.getElementById("hasil").innerHTML =
+            "BMI Anda : " + bmi.toFixed(2);
+
+        const { error } = await client
+            .from("bmi_records")
+            .insert([
+                {
+                    tinggi: parseInt(tinggi),
+                    berat: parseInt(berat),
+                    bmi: parseFloat(bmi.toFixed(2))
+                }
+            ]);
+
+        if (error) {
+            console.error(error);
+        }
+    }
+
+    </script>
+
+</body>
+</html>
