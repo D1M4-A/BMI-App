@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI App</title>
+</head>
+<body>
+
+<h1>Kalkulator Berat Badan Ideal</h1>
+
+<p>Tinggi Badan (cm)</p>
+<input type="number" id="tinggi">
+
+<p>Berat Badan (kg)</p>
+<input type="number" id="berat">
+
+<br><br>
+
+<button onclick="hitung()">Hitung</button>
+
+<h2 id="hasil"></h2>
+
+<script>
+
+function hitung(){
+
+let tinggi =
+document.getElementById("tinggi").value;
+
+let berat =
+document.getElementById("berat").value;
+
+let bmi =
+berat /
+((tinggi/100)*(tinggi/100));
+
+document.getElementById("hasil").innerHTML =
+"BMI Anda : " +
+bmi.toFixed(2);
+
+}
+
+</script>
+
+</body>
+</html>
